@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  resource :user, only: [:index]
-  root "user#index"
+  resource :memory, only: [:show]
+  root "memory#show"
 end
