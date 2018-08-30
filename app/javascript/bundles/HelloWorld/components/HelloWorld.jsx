@@ -23,11 +23,7 @@ export default class HelloWorld extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>
-          Hello, {this.state.name}!
-        </h3>
-        <hr />
+      <div className="grid">
         <form >
           <label htmlFor="name">
             Say hello to:
