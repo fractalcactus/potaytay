@@ -6,6 +6,10 @@ const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
 const GRID_SIZE = 30
 
+//TODO MEMORIES should be loaded in from the rails db
+const MEMORIES = [{ top: 3, left: 3, text: "hello there : )"}, { top: 3, left: 5, text: "hello there : )"}]
+
+
 // the default state, calculated when HelloWorld is called
 const getDefaultState = () => {
     return {
@@ -26,10 +30,25 @@ export default class HelloWorld extends React.Component {
     this.state = getDefaultState()
   }
 
+  checkIfTileContainsMemory = (newDirection) => {
+    let newDirTop = newDirection.top
+    let newDirLeft = newDirection.left
+    //if newDirection's top and left match any of the objects in MEMORY
+    let memoriesLength = MEMORIES.length;
+    for (var i = 0; i < memoriesLength; i++){
+      if(MEMORIES[i].top == newDirTop && MEMORIES[i].left == newDirLeft){
+        console.log('------memory!-------')
+      }
+    }
+    console.log("nope")
+  }
+
   handlePlayerMovement = (dirObj) => {
       const { top, left } = this.state.positions.player;
 
       // TODO check walls
+
+      // if you can move, update the position, and then check if your new position contains a memory
 
       this.setState({
           positions: {
@@ -40,6 +59,8 @@ export default class HelloWorld extends React.Component {
               }
           }
       });
+
+      this.checkIfTileContainsMemory({top: this.state.positions.player.top, left: this.state.positions.player.left})
       console.log("player top is now " + this.state.positions.player.top)
       console.log("player left is now " + this.state.positions.player.left)
   }
@@ -65,27 +86,24 @@ class Player extends React.Component {
           let newDirection;
           switch(e.keyCode) {
               case 37:
-                console.log("key 37 pressed")
                   newDirection = { top: 0, left: -1 , dir: LEFT};
                   break;
               case 38:
-                console.log("key 38 pressed")
                   newDirection = { top: -1, left: 0 , dir: UP};
                   break;
               case 39:
-                console.log("key 39 pressed")
                   newDirection = { top: 0, left: 1, dir: RIGHT};
                   break;
               case 40:
-                console.log("key 40 pressed")
                   newDirection = { top: 1, left: 0, dir: DOWN };
                   break;
               default:
                   return;
           }
-
+ 
           this.props.handlePlayerMovement(newDirection);
       }
+
 
 
   render() {
