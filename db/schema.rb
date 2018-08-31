@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_27_065034) do
+ActiveRecord::Schema.define(version: 2018_08_31_022848) do
 
   create_table "memories", force: :cascade do |t|
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "top"
+    t.string "left"
   end
 
   create_table "users", force: :cascade do |t|

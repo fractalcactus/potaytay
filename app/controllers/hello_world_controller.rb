@@ -4,6 +4,6 @@ class HelloWorldController < ApplicationController
   layout "hello_world"
 
   def index
-    @hello_world_props = { name: "Stranger" }
+    @memory_props = Memory.all.as_json(:only => [:top, :left, :text])
   end
 end
