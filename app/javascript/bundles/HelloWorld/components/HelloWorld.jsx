@@ -10,7 +10,7 @@ const RIGHT = 'RIGHT';
 const GRID_SIZE = 30
 
 //TODO MEMORIES should be loaded in from the rails db
-const MEMORIES = [{ top: 3, left: 3, text: "hello there : )"}, { top: 3, left: 5, text: "hello there : )"}]
+const MEMORIES = [{ top: 3, left: 3, text: "hello there : )"}, { top: 3, left: 5, text: "wooo : )"}]
 
 
 // the default state, calculated when HelloWorld is called
@@ -41,16 +41,10 @@ export default class HelloWorld extends React.Component {
       if(MEMORIES[i].top == newDirTop && MEMORIES[i].left == newDirLeft){
         console.log('------memory!-------')
         // return markup for memory popup
-         let memoryMarkup = <div> genertated memory html content</div>
+         let memoryMarkup = <Popup trigger={<button> Trigger</button>} position="right center"> <div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div></Popup>
          return memoryMarkup
-
-        //<Popup trigger={<button> Trigger</button>} position="right center">
-            //<div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div>
-       // </Popup>
       }
     }
-    // hide button
-    console.log("nope")
   }
 
   handlePlayerMovement = (dirObj) => {
