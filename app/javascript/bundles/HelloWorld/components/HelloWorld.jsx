@@ -35,13 +35,20 @@ export default class HelloWorld extends React.Component {
   checkIfTileContainsMemory = (newDirection) => {
     let newDirTop = newDirection.top
     let newDirLeft = newDirection.left
+    let memoryTriggerStyles = {
+      position: 'absolute',
+      top: ((newDirTop * GRID_SIZE) - 16) + 'px',
+      left: (newDirLeft * GRID_SIZE) + 'px'
+    }
+
+
     //if newDirection's top and left match any of the objects in MEMORY
     let memoriesLength = MEMORIES.length;
     for (var i = 0; i < memoriesLength; i++){
       if(MEMORIES[i].top == newDirTop && MEMORIES[i].left == newDirLeft){
         console.log('------memory!-------')
         // return markup for memory popup
-         let memoryMarkup = <Popup trigger={<button> Trigger</button>} position="right center"> <div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div></Popup>
+         let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div></Popup>
          return memoryMarkup
       }
     }
