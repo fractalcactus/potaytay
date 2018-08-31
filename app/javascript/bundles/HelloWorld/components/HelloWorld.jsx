@@ -49,6 +49,7 @@ export default class HelloWorld extends React.Component {
     return (
       <div className="grid">
         <Player
+            position={this.state.positions.player}
             handlePlayerMovement={this.handlePlayerMovement} />
       </div>
     );
@@ -85,10 +86,19 @@ class Player extends React.Component {
           this.props.handlePlayerMovement(newDirection);
       }
 
+
   render() {
+    const { size, position: { top, left }} = this.props;
+    let squareStyle = {
+      position: 'absolute',
+      top: top + 'px',
+      left: left + 'px',
+      transition: 'all 0.1s ease'
+    }
     return (
       <div
         className="square"
+        styles={squareStyle}
       >
       </div>
     );
