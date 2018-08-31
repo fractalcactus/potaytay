@@ -1,41 +1,100 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+const UP = 'UP';
+const DOWN = 'DOWN';
+const LEFT = 'LEFT';
+const RIGHT = 'RIGHT';
+
+// the default state, calculated when HelloWorld is called
+const getDefaultState = () => {
+    return {
+        positions: {
+            player: {
+                top: 1,
+                left: 1
+            },
+        },
+    }
+};
+
 
 export default class HelloWorld extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
-  };
 
-  /**
-   * @param props - Comes from your rails view.
-   */
   constructor(props) {
     super(props);
-
-    // How to set initial state in ES6 class syntax
-    // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
-    this.state = { name: this.props.name };
+    this.state = getDefaultState()
   }
 
-  updateName = (name) => {
-    this.setState({ name });
-  };
+  handlePlayerMovement = (dirObj) => {
+      const { top, left } = this.state.positions.player;
+
+      // TODO check walls
+
+      this.setState({
+          positions: {
+              ...this.state.positions,
+              player: {
+                  top: top + (1 * dirObj.top),
+                  left: left + (1 * dirObj.left)
+              }
+          }
+      });
+      console.log("player top is now " + this.state.positions.player.top)
+      console.log("player left is now " + this.state.positions.player.left)
+  }
+
+
 
   render() {
     return (
       <div className="grid">
-        <form >
-          <label htmlFor="name">
-            Say hello to:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.updateName(e.target.value)}
-          />
-        </form>
+        <Player
+            handlePlayerMovement={this.handlePlayerMovement} />
       </div>
     );
+  }
+}
+
+// presentational component
+class Player extends React.Component {
+// on a key down, console log
+
+  handleKeyDown = (e) => {
+          let newDirection;
+          switch(e.keyCode) {
+              case 37:
+                console.log("key 37 pressed")
+                  newDirection = { top: 0, left: -1 , dir: LEFT};
+                  break;
+              case 38:
+                console.log("key 38 pressed")
+                  newDirection = { top: -1, left: 0 , dir: UP};
+                  break;
+              case 39:
+                console.log("key 39 pressed")
+                  newDirection = { top: 0, left: 1, dir: RIGHT};
+                  break;
+              case 40:
+                console.log("key 40 pressed")
+                  newDirection = { top: 1, left: 0, dir: DOWN };
+                  break;
+              default:
+                  return;
+          }
+
+          this.props.handlePlayerMovement(newDirection);
+      }
+
+  render() {
+    return (
+      <div
+        className="square"
+      >
+      </div>
+    );
+  }
+
+  componentDidMount() {
+      window.onkeydown = this.handleKeyDown;
   }
 }
