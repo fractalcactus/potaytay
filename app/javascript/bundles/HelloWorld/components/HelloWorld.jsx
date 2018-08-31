@@ -9,10 +9,6 @@ const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
 const GRID_SIZE = 30
 
-//TODO MEMORIES should be loaded in from the rails db
-const MEMORIES = [{ top: 3, left: 3, text: "hello there : )"}, { top: 3, left: 5, text: "wooo : )"}]
-
-
 // the default state, calculated when HelloWorld is called
 const getDefaultState = () => {
     return {
@@ -33,6 +29,7 @@ export default class HelloWorld extends React.Component {
   }
 
   checkIfTileContainsMemory = (newDirection) => {
+    let memories = this.props.memory_array
     let newDirTop = newDirection.top
     let newDirLeft = newDirection.left
     let memoryTriggerStyles = {
@@ -40,15 +37,15 @@ export default class HelloWorld extends React.Component {
       top: ((newDirTop * GRID_SIZE) - 16) + 'px',
       left: (newDirLeft * GRID_SIZE) + 'px'
     }
-
-
     //if newDirection's top and left match any of the objects in MEMORY
-    let memoriesLength = MEMORIES.length;
+    let memoriesLength = memories.length;
     for (var i = 0; i < memoriesLength; i++){
-      if(MEMORIES[i].top == newDirTop && MEMORIES[i].left == newDirLeft){
+      console.log('memory top ' + memories[i].top)
+      console.log('compared with  newDirTop ' + newDirTop)
+      if(memories[i].top == String(newDirTop) && memories[i].left == String(newDirLeft)){
         console.log('------memory!-------')
         // return markup for memory popup
-         let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div></Popup>
+         let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div>Popup content here, will be generated from memory, e.g text is { memories[i].text }</div></Popup>
          return memoryMarkup
       }
     }
@@ -71,8 +68,8 @@ export default class HelloWorld extends React.Component {
           }
       });
 
-      console.log("player top is now " + this.state.positions.player.top)
-      console.log("player left is now " + this.state.positions.player.left)
+      // console.log("player top is now " + this.state.positions.player.top)
+      // console.log("player left is now " + this.state.positions.player.left)
   }
 
 
