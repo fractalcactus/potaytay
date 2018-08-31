@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Popup from "reactjs-popup";
+
+
 const UP = 'UP';
 const DOWN = 'DOWN';
 const LEFT = 'LEFT';
@@ -24,7 +27,6 @@ const getDefaultState = () => {
 
 
 export default class HelloWorld extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = getDefaultState()
@@ -38,8 +40,16 @@ export default class HelloWorld extends React.Component {
     for (var i = 0; i < memoriesLength; i++){
       if(MEMORIES[i].top == newDirTop && MEMORIES[i].left == newDirLeft){
         console.log('------memory!-------')
+        // return markup for memory popup
+         let memoryMarkup = <div> genertated memory html content</div>
+         return memoryMarkup
+
+        //<Popup trigger={<button> Trigger</button>} position="right center">
+            //<div>Popup content here, will be generated from memory, e.g text is { MEMORIES[i].text }</div>
+       // </Popup>
       }
     }
+    // hide button
     console.log("nope")
   }
 
@@ -60,7 +70,6 @@ export default class HelloWorld extends React.Component {
           }
       });
 
-      this.checkIfTileContainsMemory({top: this.state.positions.player.top, left: this.state.positions.player.left})
       console.log("player top is now " + this.state.positions.player.top)
       console.log("player left is now " + this.state.positions.player.left)
   }
@@ -68,8 +77,10 @@ export default class HelloWorld extends React.Component {
 
 
   render() {
+    let potentialMemory = this.checkIfTileContainsMemory({top: this.state.positions.player.top, left: this.state.positions.player.left})
     return (
       <div className="grid">
+        { potentialMemory }
         <Player
             position={this.state.positions.player}
             handlePlayerMovement={this.handlePlayerMovement} />
