@@ -4,6 +4,7 @@ const UP = 'UP';
 const DOWN = 'DOWN';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
+const GRID_SIZE = 30
 
 // the default state, calculated when HelloWorld is called
 const getDefaultState = () => {
@@ -90,15 +91,13 @@ class Player extends React.Component {
   render() {
     const { size, position: { top, left }} = this.props;
     let squareStyle = {
-      position: 'absolute',
-      top: top + 'px',
-      left: left + 'px',
-      transition: 'all 0.1s ease'
+      top: (top * GRID_SIZE) + 'px',
+      left: (left * GRID_SIZE) + 'px'
     }
     return (
       <div
         className="square"
-        styles={squareStyle}
+        style={squareStyle}
       >
       </div>
     );
