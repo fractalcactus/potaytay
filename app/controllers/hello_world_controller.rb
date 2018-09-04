@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class HelloWorldController < ApplicationController
+  http_basic_authenticate_with name: ENV["USERNAME"], password: ENV["PASSWORD"]
   layout "hello_world"
 
   def index

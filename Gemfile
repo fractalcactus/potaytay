@@ -8,6 +8,7 @@ gem 'rails', '~> 5.2.0'
 gem 'react_on_rails', '11.1.2'
 gem "webpacker", "~> 3.0"
 gem 'pg'
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
