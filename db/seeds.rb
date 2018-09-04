@@ -5,5 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Memory.create(text: 'once upon a time . . .')
-Memory.create(text: 'I remember . . .')
+Memory.create(top: 3, left: 3, text: 'once upon a time . . .')
+Memory.create(top: 3, left: 4, text: 'I remember . . .')
+Memory.create(top: 15, left: 4, text: 'I remember . . .')

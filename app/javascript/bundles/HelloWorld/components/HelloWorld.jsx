@@ -28,6 +28,10 @@ export default class HelloWorld extends React.Component {
     this.state = getDefaultState()
   }
 
+  componentDidMount() {
+    window.resizeTo(1400,788);
+  }
+
   checkIfTileContainsMemory = (newDirection) => {
     let memories = this.props.memory_array
     let newDirTop = newDirection.top
