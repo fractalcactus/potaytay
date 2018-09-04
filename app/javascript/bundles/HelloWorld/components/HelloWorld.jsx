@@ -14,8 +14,8 @@ const getDefaultState = () => {
     return {
         positions: {
             player: {
-                top: 1,
-                left: 1
+                top: 19,
+                left: 15
             },
         },
     }
