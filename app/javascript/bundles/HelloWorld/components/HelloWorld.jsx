@@ -7,15 +7,15 @@ const UP = 'UP';
 const DOWN = 'DOWN';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
-const GRID_SIZE = 30
+const GRID_SIZE = 15
 
 // the default state, calculated when HelloWorld is called
 const getDefaultState = () => {
     return {
         positions: {
             player: {
-                top: 19,
-                left: 15
+                top: 22,
+                left: 30
             },
         },
     }
@@ -44,8 +44,8 @@ export default class HelloWorld extends React.Component {
     //if newDirection's top and left match any of the objects in MEMORY
     let memoriesLength = memories.length;
     for (var i = 0; i < memoriesLength; i++){
-      console.log('memory top ' + memories[i].top)
-      console.log('compared with  newDirTop ' + newDirTop)
+      // console.log('memory top ' + memories[i].top)
+      // console.log('compared with  newDirTop ' + newDirTop)
       if(memories[i].top == String(newDirTop) && memories[i].left == String(newDirLeft)){
         // return markup for memory popup
          let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div className='memory-box'><img className='memory-image' src={ memories[i].image }/><p>{ memories[i].text }</p></div></Popup>
@@ -57,10 +57,8 @@ export default class HelloWorld extends React.Component {
   handlePlayerMovement = (dirObj) => {
       const { top, left } = this.state.positions.player;
 
-      // TODO check walls
 
       // if you can move, update the position, and then check if your new position contains a memory
-
       this.setState({
           positions: {
               ...this.state.positions,
@@ -71,8 +69,9 @@ export default class HelloWorld extends React.Component {
           }
       });
 
-      // console.log("player top is now " + this.state.positions.player.top)
-      // console.log("player left is now " + this.state.positions.player.left)
+      console.log("player top is now " + this.state.positions.player.top)
+      console.log("player left is now " + this.state.positions.player.left)
+      console.log("------------")
   }
 
 
