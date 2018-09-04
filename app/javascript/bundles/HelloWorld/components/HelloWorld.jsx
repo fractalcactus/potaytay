@@ -69,8 +69,9 @@ export default class HelloWorld extends React.Component {
           }
       });
 
-      console.log("player top is now " + this.state.positions.player.top)
-      console.log("player left is now " + this.state.positions.player.left)
+      // console.log("player top is now " + this.state.positions.player.top)
+      // console.log("player left is now " + this.state.positions.player.left)
+      console.log("Memory.create(top: " + this.state.positions.player.top + ", left: " + this.state.positions.player.left + ",")
       console.log("------------")
   }
 
