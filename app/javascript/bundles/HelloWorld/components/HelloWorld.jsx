@@ -47,9 +47,8 @@ export default class HelloWorld extends React.Component {
       console.log('memory top ' + memories[i].top)
       console.log('compared with  newDirTop ' + newDirTop)
       if(memories[i].top == String(newDirTop) && memories[i].left == String(newDirLeft)){
-        console.log('------memory!-------')
         // return markup for memory popup
-         let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div>Popup content here, will be generated from memory, e.g text is { memories[i].text }</div></Popup>
+         let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div className='memory-box'><img className='memory-image' src={ memories[i].image }/><p>{ memories[i].text }</p></div></Popup>
          return memoryMarkup
       }
     }
