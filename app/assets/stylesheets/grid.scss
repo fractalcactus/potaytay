@@ -5,8 +5,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 10000px;
-  width: 10000px;
+  width: 2366px;
+  height: 3303px;
+  overflow: hidden;
+  margin: 0;
 }
 
 .square {
@@ -15,4 +17,30 @@
   width: 29px;
   position: absolute;
   transition: all 0.1s ease;
+}
+
+
+.glover-park {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 790px;
+  z-index: -10;
+}
+
+.garrett-map {
+  position: absolute;
+  top: 0;
+  left: 161px;
+  height: 790px;
+  z-index: -10;
+}
+
+.car-park {
+  position: absolute;
+  top: 0;
+  left: 1265px;
+  height: 790px;
+  z-index: -10;
+  width: 158px;
 }
