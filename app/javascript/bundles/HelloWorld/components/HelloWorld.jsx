@@ -78,9 +78,9 @@ export default class HelloWorld extends React.Component {
           //update is_interactable state to true for that flatmate
           if(flatmateKey == 'jasper'){
             this.setState({
-                flatmates: {
-                    ...this.state.flatmates,
-                    jasper: {
+                flatmates: { //someProperty
+                    ...this.state.flatmates, //prevState.someProperty
+                    jasper: { //someOtherproperty
                         is_interactable: true
                     }
                 }
@@ -90,6 +90,7 @@ export default class HelloWorld extends React.Component {
                 flatmates: {
                     ...this.state.flatmates,
                     brigette: {
+                      ...this.state.flatmates.brigette,
                         is_interactable: true
                     }
                 }
