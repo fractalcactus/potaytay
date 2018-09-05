@@ -20,6 +20,7 @@ const getDefaultState = () => {
             },
         },
         flatmates:{
+          jasper: {top: 22, left: 18, image: "https://i.imgur.com/IalrPCs.jpg", key: 'jasper', is_interactable: false},
           brigette: {top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false}
         }
     }
@@ -74,13 +75,13 @@ export default class HelloWorld extends React.Component {
         let flatmateLeft = flatmateObj.left
         let flatmateKey = flatmateObj.key
         if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
-          console.log('next to ' + flatmateKey);
           //update is_interactable state to true for that flatmate
           if(flatmateKey == 'jasper'){
             this.setState({
-                flatmates: { //someProperty
-                    ...this.state.flatmates, //prevState.someProperty
-                    jasper: { //someOtherproperty
+                  flatmates: {
+                    ...this.state.flatmates,
+                    jasper: {
+                      ...this.state.flatmates.jasper,
                         is_interactable: true
                     }
                 }
@@ -98,6 +99,27 @@ export default class HelloWorld extends React.Component {
           }
         }else{
           //update is_interactable state to false for that flatmate
+            if(flatmateKey == 'jasper'){
+            this.setState({
+                  flatmates: {
+                    ...this.state.flatmates,
+                    jasper: {
+                      ...this.state.flatmates.jasper,
+                        is_interactable: false
+                    }
+                }
+            });
+          } else if(flatmateKey == 'brigette'){
+            this.setState({
+                flatmates: {
+                    ...this.state.flatmates,
+                    brigette: {
+                      ...this.state.flatmates.brigette,
+                        is_interactable: false
+                    }
+                }
+            });
+          }
 
         }
       }
