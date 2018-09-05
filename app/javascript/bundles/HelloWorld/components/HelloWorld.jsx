@@ -24,8 +24,8 @@ const getDefaultState = () => {
             },
         },
         flatmates:{
-          jasper: {top: 22, left: 18, image: "https://i.imgur.com/IalrPCs.jpg", key: 'jasper', is_interactable: false},
-          brigette: {top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false}
+          jasper: {name:'jasper', top: 22, left: 18, image: "https://i.imgur.com/IalrPCs.jpg", key: 'jasper', is_interactable: false},
+          brigette: {name:'brigette', top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false}
         }
     }
 };
@@ -141,7 +141,7 @@ export default class HelloWorld extends React.Component {
   }
 
   generateAFlatmate = (flatmateObj) => {
-    return <Flatmate  is_interactable={flatmateObj.is_interactable} top={flatmateObj.top}   left={flatmateObj.left}   image={flatmateObj.image}   key={flatmateObj.key} />
+    return <Flatmate name={flatmateObj.name} is_interactable={flatmateObj.is_interactable} top={flatmateObj.top}   left={flatmateObj.left}   image={flatmateObj.image}   key={flatmateObj.key} />
   }
 
   render() {
@@ -175,7 +175,8 @@ class Flatmate extends React.Component {
         left: ((this.props.left - 2) * GRID_SIZE) + 'px',
         display: `${this.props.is_interactable == false ? "none" : "flex" }`
       }
-      let quote = QUOTES['brigette'][0]
+      let randomNum = Math.floor(Math.random() * QUOTES[this.props.name].length)
+      let quote = QUOTES[this.props.name][randomNum]
       return(
         <div>
           <div
