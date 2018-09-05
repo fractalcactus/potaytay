@@ -19,6 +19,10 @@ const getDefaultState = () => {
                 left: 30
             },
         },
+        flatmates:{
+          jasper: {top: 22, left: 27, image: "https://i.imgur.com/NBBFoNn.jpg", key: 'jasper', is_interactable: false},
+          brigette: {top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false},
+        }
     }
 };
 
@@ -27,20 +31,6 @@ export default class HelloWorld extends React.Component {
   constructor(props) {
     super(props);
     this.state = getDefaultState()
-  }
-
-  flatmates = () => {
-      return [ <Flatmate
-                    top={22}
-                    left={27}
-                    image="https://i.imgur.com/NBBFoNn.jpg"
-                    key='jasper' />,
-                    <Flatmate
-                      top={22}
-                      left={22}
-                      image="https://i.imgur.com/IalrPCs.jpg"
-                      key='brigette' />
-                  ]
   }
 
   checkIfTileContainsMemoryOrFlatmate = (newDirection) => {
@@ -62,15 +52,16 @@ export default class HelloWorld extends React.Component {
     }
 
     //check flatmates
-    for (var i = 0; i < this.flatmates().length; i++){
-      // console.log(this.flatmates()[i].props.image)
-      let flatmate = this.flatmates()[i]
-      let flatmateTop = flatmate.props.top
-      let flatmateLeft = flatmate.props.left
-      if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
-        console.log('next to ' + flatmate.key);
-      }
-    }
+    // for (var i = 0; i < this.state.flatmates.length; i++){
+    //   let flatmate = this.state.flatmates[i]
+    //   let flatmateTop = flatmate.top
+    //   let flatmateLeft = flatmate.left
+    //   if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
+    //   }else{
+    //     //find the element and replace it in the array, passing a prop along
+
+    //   }
+    // }
   }
 
   handlePlayerMovement = (dirObj) => {
@@ -94,7 +85,11 @@ export default class HelloWorld extends React.Component {
       console.log("------------")
   }
 
-
+  renderFlatmates = () => {
+    //make a copy of the state
+    let flatmates = Object.assign({}, this.state.flatmates)
+    Object.keys(flatmates).map(function(key){console.log(flatmates[key].image)})
+  }
 
   render() {
 
@@ -105,7 +100,7 @@ export default class HelloWorld extends React.Component {
         <Player
             position={this.state.positions.player}
             handlePlayerMovement={this.handlePlayerMovement} />
-        { this.flatmates() }
+        { this.renderFlatmates() }
       </div>
     );
   }
@@ -115,6 +110,19 @@ class Flatmate extends React.Component {
    constructor(props) {
     // props: image, top, left
     super(props);
+    this.state = {is_interactable: false}
+    }
+
+    isInteractable = (e) => {
+      this.setState((state) => {
+          return {is_interactable: true}
+        });
+    }
+
+    notInteractable = (e) => {
+      this.setState((state) => {
+          return {is_interactable: false}
+        });
     }
 
     render(){
@@ -123,12 +131,24 @@ class Flatmate extends React.Component {
         left: (this.props.left * GRID_SIZE) + 'px',
         backgroundImage: `url(${this.props.image})`
       }
+      let bubbleStyle = {
+        top: ((this.props.top - 6) * GRID_SIZE) + 'px',
+        left: ((this.props.left - 2) * GRID_SIZE) + 'px',
+        display: `${this.state.is_interactable ? "none" : "" }`
+      }
       return(
-        <div
-          className="flatmate"
-          style={flatmateStyle}
-        >
+        <div>
+          <div
+            className="flatmate-speech-bubble"
+            style={bubbleStyle}
+          >
+          </div>
+          <div
+            className="flatmate"
+            style={flatmateStyle}
+          >
         </div>
+      </div>
       );
     }
 
