@@ -86,9 +86,15 @@ export default class HelloWorld extends React.Component {
   }
 
   renderFlatmates = () => {
-    //make a copy of the state
     let flatmates = Object.assign({}, this.state.flatmates)
-    Object.keys(flatmates).map(function(key){console.log(flatmates[key].image)})
+    let flatmatesArr = Object.values(flatmates)
+    let newFlatmatesArr = flatmatesArr.map(f => this.generateAFlatmate(f));
+    console.log(newFlatmatesArr);
+    return newFlatmatesArr //this is a local object, not the state
+  }
+
+  generateAFlatmate = (flatmateObj) => {
+    return <Flatmate  is_interactable={flatmateObj.is_interactable} top={flatmateObj.top}   left={flatmateObj.left}   image={flatmateObj.image}   key={flatmateObj.key} />
   }
 
   render() {
