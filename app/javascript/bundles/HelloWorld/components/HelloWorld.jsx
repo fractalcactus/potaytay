@@ -20,8 +20,7 @@ const getDefaultState = () => {
             },
         },
         flatmates:{
-          jasper: {top: 22, left: 27, image: "https://i.imgur.com/NBBFoNn.jpg", key: 'jasper', is_interactable: false},
-          brigette: {top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false},
+          brigette: {top: 22, left: 22, image: "https://i.imgur.com/IalrPCs.jpg", key: 'brigette', is_interactable: false}
         }
     }
 };
@@ -33,7 +32,7 @@ export default class HelloWorld extends React.Component {
     this.state = getDefaultState()
   }
 
-  checkIfTileContainsMemoryOrFlatmate = (newDirection) => {
+  checkIfTileContainsMemory = (newDirection) => {
     let memories = this.props.memory_array
     let newDirTop = newDirection.top
     let newDirLeft = newDirection.left
@@ -50,18 +49,6 @@ export default class HelloWorld extends React.Component {
          return memoryMarkup
       }
     }
-
-    //check flatmates
-    // for (var i = 0; i < this.state.flatmates.length; i++){
-    //   let flatmate = this.state.flatmates[i]
-    //   let flatmateTop = flatmate.top
-    //   let flatmateLeft = flatmate.left
-    //   if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
-    //   }else{
-    //     //find the element and replace it in the array, passing a prop along
-
-    //   }
-    // }
   }
 
   handlePlayerMovement = (dirObj) => {
@@ -78,9 +65,42 @@ export default class HelloWorld extends React.Component {
               }
           }
       });
+      let newDirTop = this.state.positions.player.top
+      let newDirLeft = this.state.positions.player.left
+      //check flatmates
+      for (var f in this.state.flatmates){
+        let flatmateObj = this.state.flatmates[f]
+        let flatmateTop = flatmateObj.top
+        let flatmateLeft = flatmateObj.left
+        let flatmateKey = flatmateObj.key
+        if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
+          console.log('next to ' + flatmateKey);
+          //update is_interactable state to true for that flatmate
+          if(flatmateKey == 'jasper'){
+            this.setState({
+                flatmates: {
+                    ...this.state.flatmates,
+                    jasper: {
+                        is_interactable: true
+                    }
+                }
+            });
+          } else if(flatmateKey == 'brigette'){
+            this.setState({
+                flatmates: {
+                    ...this.state.flatmates,
+                    brigette: {
+                        is_interactable: true
+                    }
+                }
+            });
+          }
+        }else{
+          //update is_interactable state to false for that flatmate
 
-      // console.log("player top is now " + this.state.positions.player.top)
-      // console.log("player left is now " + this.state.positions.player.left)
+        }
+      }
+
       console.log("Memory.create(top: " + this.state.positions.player.top + ", left: " + this.state.positions.player.left + ",")
       console.log("------------")
   }
@@ -99,7 +119,7 @@ export default class HelloWorld extends React.Component {
 
   render() {
 
-    let potentialMemory = this.checkIfTileContainsMemoryOrFlatmate({top: this.state.positions.player.top, left: this.state.positions.player.left})
+    let potentialMemory = this.checkIfTileContainsMemory({top: this.state.positions.player.top, left: this.state.positions.player.left})
     return (
       <div className="grid">
         { potentialMemory }
@@ -114,21 +134,8 @@ export default class HelloWorld extends React.Component {
 
 class Flatmate extends React.Component {
    constructor(props) {
-    // props: image, top, left
+    // props: image, top, left, is_interactable
     super(props);
-    this.state = {is_interactable: false}
-    }
-
-    isInteractable = (e) => {
-      this.setState((state) => {
-          return {is_interactable: true}
-        });
-    }
-
-    notInteractable = (e) => {
-      this.setState((state) => {
-          return {is_interactable: false}
-        });
     }
 
     render(){
@@ -140,7 +147,7 @@ class Flatmate extends React.Component {
       let bubbleStyle = {
         top: ((this.props.top - 6) * GRID_SIZE) + 'px',
         left: ((this.props.left - 2) * GRID_SIZE) + 'px',
-        display: `${this.state.is_interactable ? "none" : "" }`
+        display: `${this.props.is_interactable == false ? "none" : "inline" }`
       }
       return(
         <div>
