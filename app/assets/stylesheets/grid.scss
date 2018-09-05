@@ -65,3 +65,19 @@
   justify-content: center;
   font-size: 10px;
 }
+
+.garrett-building{
+  position: absolute;
+  top: 0;
+  left: 161px;
+  height: 790px;
+}
+
+.door{
+  height: 231px;
+  width: 100px;
+  position: absolute;
+  left: 666px;
+  top: 474px;
+  z-index: 100;
+}
