@@ -7,7 +7,8 @@ const UP = 'UP';
 const DOWN = 'DOWN';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
-const GRID_SIZE = 15
+const GRID_SIZE = 15;
+
 
 // the default state, calculated when HelloWorld is called
 const getDefaultState = () => {
@@ -28,11 +29,21 @@ export default class HelloWorld extends React.Component {
     this.state = getDefaultState()
   }
 
-  componentDidMount() {
-    window.resizeTo(1400,788);
+  flatmates = () => {
+      return [ <Flatmate
+                    top={22}
+                    left={27}
+                    image="https://i.imgur.com/NBBFoNn.jpg"
+                    key='jasper' />,
+                    <Flatmate
+                      top={22}
+                      left={22}
+                      image="https://i.imgur.com/IalrPCs.jpg"
+                      key='brigette' />
+                  ]
   }
 
-  checkIfTileContainsMemory = (newDirection) => {
+  checkIfTileContainsMemoryOrFlatmate = (newDirection) => {
     let memories = this.props.memory_array
     let newDirTop = newDirection.top
     let newDirLeft = newDirection.left
@@ -41,15 +52,23 @@ export default class HelloWorld extends React.Component {
       top: ((newDirTop * GRID_SIZE) - 16) + 'px',
       left: (newDirLeft * GRID_SIZE) + 'px'
     }
-    //if newDirection's top and left match any of the objects in MEMORY
+    // check memories
     let memoriesLength = memories.length;
     for (var i = 0; i < memoriesLength; i++){
-      // console.log('memory top ' + memories[i].top)
-      // console.log('compared with  newDirTop ' + newDirTop)
       if(memories[i].top == String(newDirTop) && memories[i].left == String(newDirLeft)){
-        // return markup for memory popup
          let memoryMarkup = <Popup trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div className='memory-box'><img className='memory-image' src={ memories[i].image }/><p>{ memories[i].text }</p></div></Popup>
          return memoryMarkup
+      }
+    }
+
+    //check flatmates
+    for (var i = 0; i < this.flatmates().length; i++){
+      // console.log(this.flatmates()[i].props.image)
+      let flatmate = this.flatmates()[i]
+      let flatmateTop = flatmate.props.top
+      let flatmateLeft = flatmate.props.left
+      if(flatmateTop == newDirTop && flatmateLeft == (newDirLeft - 2)){
+        console.log('next to ' + flatmate.key);
       }
     }
   }
@@ -78,22 +97,45 @@ export default class HelloWorld extends React.Component {
 
 
   render() {
-    let potentialMemory = this.checkIfTileContainsMemory({top: this.state.positions.player.top, left: this.state.positions.player.left})
+
+    let potentialMemory = this.checkIfTileContainsMemoryOrFlatmate({top: this.state.positions.player.top, left: this.state.positions.player.left})
     return (
       <div className="grid">
         { potentialMemory }
         <Player
             position={this.state.positions.player}
             handlePlayerMovement={this.handlePlayerMovement} />
+        { this.flatmates() }
       </div>
     );
   }
 }
 
-// presentational component
-class Player extends React.Component {
-// on a key down, console log
+class Flatmate extends React.Component {
+   constructor(props) {
+    // props: image, top, left
+    super(props);
+    }
 
+    render(){
+      let flatmateStyle = {
+        top: (this.props.top * GRID_SIZE) + 'px',
+        left: (this.props.left * GRID_SIZE) + 'px',
+        backgroundImage: `url(${this.props.image})`
+      }
+      return(
+        <div
+          className="flatmate"
+          style={flatmateStyle}
+        >
+        </div>
+      );
+    }
+
+}
+
+
+class Player extends React.Component {
   handleKeyDown = (e) => {
           let newDirection;
           switch(e.keyCode) {
