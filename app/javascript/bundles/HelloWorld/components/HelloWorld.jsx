@@ -8,6 +8,10 @@ const DOWN = 'DOWN';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
 const GRID_SIZE = 15;
+const QUOTES = {
+  jasper:['burrito', 'cheese', "how's it going?", "I've been mixing all day", "dope", "hope that's mellow", "going surfing"],
+  brigette:["squijected!!", "fart", "poo", "I ate too much", "mittens", "I can't, I need to clean my fish", "I love you!"]
+}
 
 
 // the default state, calculated when HelloWorld is called
@@ -157,7 +161,6 @@ export default class HelloWorld extends React.Component {
 
 class Flatmate extends React.Component {
    constructor(props) {
-    // props: image, top, left, is_interactable
     super(props);
     }
 
@@ -170,14 +173,16 @@ class Flatmate extends React.Component {
       let bubbleStyle = {
         top: ((this.props.top - 6) * GRID_SIZE) + 'px',
         left: ((this.props.left - 2) * GRID_SIZE) + 'px',
-        display: `${this.props.is_interactable == false ? "none" : "inline" }`
+        display: `${this.props.is_interactable == false ? "none" : "flex" }`
       }
+      let quote = QUOTES['brigette'][0]
       return(
         <div>
           <div
             className="flatmate-speech-bubble"
             style={bubbleStyle}
           >
+          { quote }
           </div>
           <div
             className="flatmate"
