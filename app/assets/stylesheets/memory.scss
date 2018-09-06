@@ -13,8 +13,21 @@ p {
   align-items: center;
   flex-wrap: wrap;
   padding: 10px;
+  p{
+    width: 100%;
+    text-align: center;
+  }
+  p span{
+    background-color: white;
+  }
 }
 
 .memory-image{
   max-height: 500px;
 }
+
+.memory-popup{
+    background-color: transparent !important;
+    border: none !important;
+}
+
