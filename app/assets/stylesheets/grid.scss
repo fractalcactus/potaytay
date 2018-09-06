@@ -89,6 +89,16 @@
   font-size: 10px;
 }
 
+.bubble-text{
+  height: 101px;
+  width: 114px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-left: 10px;
+}
+
 .garrett-building{
   position: absolute;
   top: 0;
