@@ -75,9 +75,13 @@ export default class HelloWorld extends React.Component {
     }
     
     let memoriesLength = memories.length;
+    let potentialText 
     for (var i = 0; i < memoriesLength; i++){
       if(memories[i].top == String(newDirTop) && memories[i].left == String(newDirLeft)){
-         let memoryMarkup = <Popup className='memory-popup' trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div className='memory-box'><img className='memory-image' src={ memories[i].image }/><p><span>{ memories[i].text }</span></p></div></Popup>
+      if(memories[i].text){
+        potentialText = <p>{ memories[i].text }</p>
+      }
+         let memoryMarkup = <Popup className='memory-popup' trigger={<button style={memoryTriggerStyles} className="memoryTrigger"> memory!</button>} modal> <div className='memory-box'><img className='memory-image' src={ memories[i].image }/>{potentialText}</div></Popup>
          return memoryMarkup
       }
     }
